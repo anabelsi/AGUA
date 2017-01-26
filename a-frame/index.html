@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>AGUA - Real Estate</title>
+    <meta name="description" content="AGUA - Real Estate">
+    <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+    <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
+    <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
+    <script src="index.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <a-assets>
+         <audio id="click-sound" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+          <!-- Images. -->
+          <img id="background" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg">
+
+          <script id="link" type="text/html">
+              <a-entity class="link"
+                geometry="primitive: plane; height: 1; width: 3"
+                material="shader: flat; color: #A9A9A9"
+                event-set__1="_event: mousedown; scale: 1 1 1"
+                event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+                event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+                event-set__4="_event: mouseleave; scale: 1 1 1"
+                start-tour="on: click; id: ${id}"
+                sound="on: click; src: #click-sound"></a-entity>
+          </script>
+      </a-assets>
+
+       <a-sky id="image-360" radius="10" src="#background"></a-sky>
+
+       <a-entity id="title" bmfont-text="text: Select a Property to Tour; color: #BBB" position="-1.5 0.2 -3"
+           scale="1.5 1.5 1.5"></a-entity>
+       
+        <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
+          <a-entity id="property" template="src: #link" data-id="1234"></a-entity>
+        </a-entity>
+
+       <!-- Camera + Cursor. -->
+       <a-entity camera look-controls>
+          <a-cursor id="cursor"
+            animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+            animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+            event-set__1="_event: mouseenter; color: springgreen"
+            event-set__2="_event: mouseleave; color: black"
+            raycaster="objects: .link"></a-cursor>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
