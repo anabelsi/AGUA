@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>AGUA - Real Estate - Search</title>
+    <meta name="description" content="AGUA - Real Estate - Search">
+    <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+    <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
+    <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
+    <script src="index.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <a-assets>
+         <audio id="click-sound" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+          <!-- Images. -->
+          <img id="background" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg">
+
+					<a-mixin id="cube" geometry="primitive: box; height: 1; width: 2"
+                 material="color: #FFFBE0"></a-mixin>
+
+					 <!-- <script id="option" type="text/html">
+							 <a-entity class="option"
+								 geometry="primitive: box; width: 2; depth: 0.01"
+								 material="color: #333"
+								 event-set__enter="_event: mouseenter; material.color: #EEE"
+								 event-set__leave="_event: mouseleave; material.color: #333"
+								 update-tiles="on: click; category: ${category}"
+								 sound="on: click; src: #click-sound"></a-entity>
+					 </script> -->
+					 <a-mixin id="option" class="clickable"
+            	geometry="primitive: box; width: 2.5; depth: 0.01"
+             	material="color: #333"
+						 	update-tiles="on: click;"</a-mixin>
+					 <a-mixin id="back-button" class="clickable"
+							geometry="primitive: box; height: 0.5; width: 1.0; depth: 0.01"
+							material="color: #767"
+							update-tiles="on: click;"</a-mixin>
+
+      </a-assets>
+
+       <a-sky id="image-360" radius="30" src="#background"></a-sky>
+
+			 <a-entity id="container" position="0 0 -5">
+
+				 <!-- Put labels further back in z-axis so they don't interfere with clicking tiles -->
+				 <a-entity id="labels-container" position="0 0 -1">
+					 	<a-entity bmfont-text="text: Select a Category to Search for Properties; color: #BBB" position="-2.5 2.7 0" scale="2 2 2"
+					 		></a-entity>
+
+						<a-entity id="category-label" bmfont-text="text: Category:; color: #BBB" position="-0.5 1.8 0" scale="2 2 2"
+								></a-entity>
+						<a-entity id="category-text" bmfont-text="text: ; color: #BBB" position="2 1.8 0"  scale="2 2 2"
+								></a-entity>
+						<a-entity id="subcategory-label" bmfont-text="text: Subcategory:; color: #BBB" position="-0.5 1.3 0"  scale="2 2 2"
+								></a-entity>
+						<a-entity id="subcategory-text" bmfont-text="text: ; color: #BBB" position="2 1.3 0"  scale="2 2 2"
+								></a-entity>
+					</a-entity>
+
+				 <a-entity layout="type: line; margin: 3" position="-2.5 0 0">
+						<a-entity mixin="option" update-tiles="tileNum: 0; goBack: false">
+	            <a-entity bmfont-text="text: ; color: #FFF"
+	                      position="-0.95 0 0.1"></a-entity>
+						</a-entity>
+	          <a-entity mixin="option" update-tiles="tileNum: 1; goBack: false">
+	            <a-entity bmfont-text="text: ; color: #FFF"
+	                      position="-0.95 0 0.1"></a-entity>
+	          </a-entity>
+	          <a-entity mixin="option" update-tiles="tileNum: 2; goBack: false">
+	            <a-entity bmfont-text="text: ; color: #FFF"
+	                      position="-0.95 0 0.1"></a-entity>
+	          </a-entity>
+	        </a-entity>
+
+	        <a-entity layout="type: line; margin: 3" position="-2.5 -1.5 0">
+	          <a-entity mixin="option" update-tiles="tileNum: 3; goBack: false">
+	            <a-entity bmfont-text="text: ; color: #FFF"
+	                      position="-0.95 0 0.1"></a-entity>
+	          </a-entity>
+	          <a-entity mixin="option" update-tiles="tileNum: 4; goBack: false">
+	            <a-entity bmfont-text="text: ; color: #FFF"
+	                      position="-0.95 0 0.1"></a-entity>
+	          </a-entity>
+	          <a-entity mixin="option" update-tiles="tileNum: 5; goBack: false">
+	            <a-entity bmfont-text="text: ; color: #FFF"
+	                      position="-0.95 0 0.1"></a-entity>
+	          </a-entity>
+	        </a-entity>
+
+					<a-entity layout="type: line; margin: 3" position="-2.5 1.2 0">
+						<a-entity mixin="back-button" update-tiles="goBack: true;">
+							<a-entity bmfont-text="text: BACK; color: #FFF"
+												position="-0.17 -0.1 0.1"></a-entity>
+						</a-entity>
+					</a-entity>
+			</a-entity>
+
+       <!-- Camera + Cursor. -->
+       <a-entity camera look-controls>
+          <a-cursor id="cursor"
+            animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+            animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+            event-set__1="_event: mouseenter; color: springgreen"
+            event-set__2="_event: mouseleave; color: black"
+            raycaster="objects: .clickable"></a-cursor>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
