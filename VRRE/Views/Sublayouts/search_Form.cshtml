@@ -1,0 +1,120 @@
+﻿@using Sitecore.Mvc.Presentation
+@model VRRE.Models.Search
+@{
+    var context = Sitecore.Context.Database;
+    var provinceItem = context.Items.GetItem(Sitecore.Data.ID.Parse("{39F65B94-A67D-4F8C-A283-15112BCD533A}"));
+    var propTypeItem = context.Items.GetItem(Sitecore.Data.ID.Parse("{96EBCE07-2094-4427-8488-A1320E4DE306}"));
+    var tranTypeItem = context.Items.GetItem(Sitecore.Data.ID.Parse("{4C614FD2-F479-4F40-80E2-C626DE816C57}"));
+
+    var provinces = provinceItem.Children;
+    var propTypes = propTypeItem.Children;
+    var tranTypes = tranTypeItem.Children;
+}
+
+@using (Html.BeginRouteForm(Sitecore.Mvc.Configuration.MvcSettings.SitecoreRouteName, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "contact", @class = "formComponent Search", @novalidate = "novalidate" }))
+{
+    @Html.Sitecore().FormHandler("Search", "Submit")
+
+    <div class="form-group">
+        <label for="City">City:</label>
+        @Html.TextBoxFor(model => model.City, new { @maxlength = "80", @class = "form-control", @type = "text" })
+        @Html.ValidationMessageFor(model => model.City, String.Empty, new { @style = "color: #f00;" })
+    </div>
+
+    <div class="form-group">
+        <label for="Province">Province:</label>
+        @{
+            var ProvinceSelectList = new List<Object>();
+            foreach (var subitem in provinces.ToList())
+            {
+                string Text = subitem.Fields["Text"].ToString();
+                string Value = subitem.Fields["Value"].ToString();
+
+                ProvinceSelectList.Add(new { value = Value, text = Text });
+            }
+
+            @Html.DropDownListFor(model => model.Province, new SelectList(ProvinceSelectList, "value", "text"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Province, String.Empty, new { @style = "color: #f00;" })
+        }
+    </div>
+
+    <div class="form-group">
+        <label for="PType">Property Type:</label>
+        @{
+            var PTypeSelectList = new List<Object>();
+            foreach (var subitem in propTypes.ToList())
+            {
+                string Text = subitem.Fields["Text"].ToString();
+                string Value = subitem.Fields["Value"].ToString();
+
+                PTypeSelectList.Add(new { value = Value, text = Text });
+            }
+
+            @Html.DropDownListFor(model => model.PType, new SelectList(PTypeSelectList, "value", "text"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PType, String.Empty, new { @style = "color: #f00;" })
+        }
+    </div>
+
+    <div class="form-group">
+        <label for="TType">Transaction Type:</label>
+        @{
+            var TTypeSelectList = new List<Object>();
+            foreach (var subitem in tranTypes.ToList())
+            {
+                string Text = subitem.Fields["Text"].ToString();
+                string Value = subitem.Fields["Value"].ToString();
+
+                TTypeSelectList.Add(new { value = Value, text = Text });
+            }
+
+            @Html.DropDownListFor(model => model.TType, new SelectList(TTypeSelectList, "value", "text"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TType, String.Empty, new { @style = "color: #f00;" })
+        }
+    </div>
+
+    <div class="form-group">
+        <label for="Bedrooms">Number of Bedrooms:</label>
+        @{
+            var BedroomSelectList = new List<Object>();
+            BedroomSelectList.Add(new { value = "any", text = "Any" });
+            BedroomSelectList.Add(new { value = "1", text = "1" });
+            BedroomSelectList.Add(new { value = "2", text = "2" });
+            BedroomSelectList.Add(new { value = "3", text = "3" });
+            BedroomSelectList.Add(new { value = "plus", text = "3+" });
+
+            @Html.DropDownListFor(model => model.Bedrooms, new SelectList(BedroomSelectList, "value", "text"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Bedrooms, String.Empty, new { @style = "color: #f00;" })
+        }
+    </div>
+
+    <div class="form-group">
+        <label for="Bathrooms">Number of Bathrooms:</label>
+        @{
+            var BathroomSelectList = new List<Object>();
+            BathroomSelectList.Add(new { value = "any", text = "Any" });
+            BathroomSelectList.Add(new { value = "1", text = "1" });
+            BathroomSelectList.Add(new { value = "2", text = "2" });
+            BathroomSelectList.Add(new { value = "3", text = "3" });
+            BathroomSelectList.Add(new { value = "plus", text = "3+" });
+
+            @Html.DropDownListFor(model => model.Bathrooms, new SelectList(BathroomSelectList, "value", "text"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Bathrooms, String.Empty, new { @style = "color: #f00;" })
+        }
+    </div>
+
+    <div class="form-group">
+        <label for="Minimum">Minimum Budget:</label>
+        @Html.TextBoxFor(model => model.Minimum, new { @maxlength = "80", @class = "form-control", @type = "text" })
+        @Html.ValidationMessageFor(model => model.Minimum, String.Empty, new { @style = "color: #f00;" })
+    </div>
+
+    <div class="form-group">
+        <label for="Maximum">Maximum Budget:</label>
+        @Html.TextBoxFor(model => model.Maximum, new { @maxlength = "80", @class = "form-control", @type = "text" })
+        @Html.ValidationMessageFor(model => model.Maximum, String.Empty, new { @style = "color: #f00;" })
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-primary dropdown-toggle" id="submit" type="submit" value="Search">
+    </div>
+}

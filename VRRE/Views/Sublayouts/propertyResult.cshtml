@@ -1,0 +1,107 @@
+﻿@using Sitecore.Mvc.Presentation
+@using Sitecore.Resources.Media
+@model RenderingModel
+@{
+    var context = Sitecore.Context.Database;
+    Sitecore.Data.Items.Item[] Properties = null;
+    var queryData = (VRRE.Models.Search)ViewData["query"];
+    if (queryData != null)
+    {
+        string query = VRRE.Views.QueryManager.GetQuery(queryData);
+
+        if (!string.IsNullOrEmpty(query))
+        {
+            Properties = context.SelectItems(query);
+            if (Properties != null)
+            {
+                Session["Properties"] = Properties;
+            }
+        }
+    }
+    else if (Session["Properties"] != null)
+    {
+        Properties = (Sitecore.Data.Items.Item[])Session["Properties"];
+        Session["Properties"] = null;
+    }
+    //var Properties = (context.Items.GetItem(Sitecore.Data.ID.Parse("{1A29DD79-608B-4034-A68B-67D514D66034}"))).Children.ToList();
+    var mediaUrlOptions = new MediaUrlOptions() { UseItemPath = false, AbsolutePath = true, AlwaysIncludeServerUrl = true };
+    int Carousel = 0;
+
+    if (Properties != null)
+    {
+        if (Properties.Count() == 0)
+        {
+            <p>No results :(</p>
+        }
+        foreach (var property in Properties)
+        {
+            Carousel++;
+            string carouselID = "carousel-example-generic" + Carousel;
+            string carouselTarget = "#carousel-example-generic" + Carousel;
+            string address = property.Fields["Address"].ToString();
+            string description = property.Fields["Description"].ToString();
+            string price = property.Fields["Price"].ToString();
+            string bedrooms = property.Fields["Bedrooms"].ToString();
+            string bathrooms = property.Fields["Bathrooms"].ToString();
+            var images = context.Items.GetItem(Sitecore.Data.ID.Parse(property.Fields["Images"].ToString())).Children.ToList();
+
+            <div class="row">
+                <div class="row carousel-holder">
+                    <div class="col-md-12">
+                        <div class="thumbnail">
+
+                            <div id="@carouselID" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    @for (int i = 0; i < images.Count; i++)
+                                    {
+                                        string isActive = "";
+                                        if (i == 0)
+                                        {
+                                            isActive = "active";
+                                        }
+                                        <li data-target="@carouselTarget" data-slide-to="@i" class="@isActive"></li>
+                                    }
+                                </ol>
+                                <div class="carousel-inner">
+                                    @for (int i = 0; i < images.Count; i++)
+                                    {
+                                        string isActive = "";
+                                        if (i == 0)
+                                        {
+                                            isActive = "active";
+                                        }
+                                        var img = images[i];
+                                        string url = MediaManager.GetMediaUrl(img, mediaUrlOptions);
+                                        <div class="item @isActive">
+                                            <img class="slide-image" src="@url" alt="@img.Fields["Alt"].ToString()">
+                                        </div>
+                                    }
+                                </div>
+                                <a class="left carousel-control" href="@carouselTarget" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="@carouselTarget" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+
+                            <div class="caption">
+                                <h4 class="pull-right">$@price</h4>
+                                <h4>
+                                    @address
+                                </h4>
+                                <p class="pull-right">Bedrooms: @bedrooms</p>
+                                <p>Bathrooms: @bathrooms</p>
+                                <p>@Html.Raw(description)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>What are you looking for? Fill our the form to get started!</p>
+    }
+}
