@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="VRRE.QueryService" CodeBehind="QueryService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="AGUA.QueryService" CodeBehind="QueryService.svc.cs" %>

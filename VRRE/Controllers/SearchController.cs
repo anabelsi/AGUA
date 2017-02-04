@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using Sitecore.Mvc.Presentation;
-using VRRE.Models;
+using AGUA.Models;
 using System.Web;
 
-namespace VRRE.Controllers
+namespace AGUA.Controllers
 {
     [RoutePrefix("forms")]
     public class SearchController : Controller

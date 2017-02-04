@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using VRRE.Models;
+using AGUA.Models;
 
-namespace VRRE.Views
+namespace AGUA.Views
 {
     public class QueryManager
     {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRRE", "VRRE\VRRE.csproj", "{15070B77-D0D5-4DCC-8675-3DC315A5E6B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGUA", "VRRE\AGUA.csproj", "{15070B77-D0D5-4DCC-8675-3DC315A5E6B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

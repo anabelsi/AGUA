@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Activation;
-using VRRE.Models;
+using AGUA.Models;
 using Sitecore.Resources.Media;
 
-namespace VRRE
+namespace AGUA
 {
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class QueryService : IQueryService

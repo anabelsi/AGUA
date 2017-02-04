@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace VRRE.Models
+namespace AGUA.Models
 {
     [DataContract]
     public class Property

@@ -4,10 +4,10 @@
 @{
     var context = Sitecore.Context.Database;
     Sitecore.Data.Items.Item[] Properties = null;
-    var queryData = (VRRE.Models.Search)ViewData["query"];
+    var queryData = (AGUA.Models.Search)ViewData["query"];
     if (queryData != null)
     {
-        string query = VRRE.Views.QueryManager.GetQuery(queryData);
+        string query = AGUA.Views.QueryManager.GetQuery(queryData);
 
         if (!string.IsNullOrEmpty(query))
         {

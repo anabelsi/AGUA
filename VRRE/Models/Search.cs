@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VRRE.Models
+namespace AGUA.Models
 {
     public class Search : Sitecore.Mvc.Presentation.RenderingModel
     {

@@ -1,0 +1,22 @@
+﻿@using Sitecore.Mvc
+@using Sitecore.Mvc.Presentation
+@model RenderingModel
+@{
+    string Name = "";
+    string StudentNumber = "";
+
+    var context = Sitecore.Context.Database;
+    var DataEntry = RenderingContext.Current.Rendering.Item;
+
+    if (DataEntry != null)
+    {
+        if (DataEntry.TemplateID.ToString().Equals("{2393A324-BB21-430B-9B09-CECF90DAF8DD}")){
+            Name = DataEntry.Fields["Name"].ToString();
+            StudentNumber = DataEntry.Fields["Student Number"].ToString();
+        }
+    }
+}
+<div>
+    <p>Name:    @Name</p>
+    <p>Student Number:    @StudentNumber</p>
+</div>

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
-using VRRE.Models;
+using AGUA.Models;
 
-namespace VRRE
+namespace AGUA
 {
-    [ServiceContract(Namespace = "VRRE")]
+    [ServiceContract(Namespace = "AGUA")]
     public interface IQueryService
     {
         [OperationContract]

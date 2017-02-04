@@ -2,7 +2,7 @@
 using System.Web.Routing;
 using Sitecore.Pipelines;
 
-namespace VRRE.Pipelines
+namespace AGUA.Pipelines
 {
     public class RegisterWebApiRoutes
     {
